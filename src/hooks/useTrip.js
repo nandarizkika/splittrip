@@ -27,7 +27,7 @@ export function useTrip(tripId) {
     const snap = await new Promise((resolve) =>
       onValue(ref(db, `trips/${tripId}`), resolve, { onlyOnce: true })
     )
-    const current = snap.val()
+    const current = snap.val() || {}
     const participants = [...(current.participants || []), name]
     await update(ref(db, `trips/${tripId}`), { participants })
   }

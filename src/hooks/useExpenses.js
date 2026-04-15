@@ -28,33 +28,26 @@ export function useExpenses(tripId) {
     const existingData = existingSnap.val() || {}
 
     const newData = {}
-    computed.forEach((s, i) => {
-      const match = Object.values(existingData).find(
-        (e) => e.from === s.from && e.to === s.to
-      )
-      newData[`s${i}`] = { ...s, paid: match?.paid || false }
+    computed.forEach((s) => {
+      const key = `${s.from}__${s.to}`
+      newData[key] = { ...s, paid: existingData[key]?.paid || false }
     })
     await set(settRef, Object.keys(newData).length > 0 ? newData : null)
   }
 
   async function addExpense(expense) {
-    await push(ref(db, `expenses/${tripId}`), { ...expense, createdAt: Date.now() })
-    const snap = await new Promise((resolve) =>
-      onValue(ref(db, `expenses/${tripId}`), resolve, { onlyOnce: true })
-    )
-    const data = snap.val() || {}
-    const list = Object.entries(data).map(([id, val]) => ({ id, ...val }))
-    await saveSettlements(list)
+    const newExpense = { ...expense, createdAt: Date.now() }
+    const pushed = await push(ref(db, `expenses/${tripId}`), newExpense)
+    const merged = [...expenses, { id: pushed.key, ...newExpense }]
+    await saveSettlements(merged)
   }
 
-  async function updateExpense(expenseId, expense) {
-    await update(ref(db, `expenses/${tripId}/${expenseId}`), expense)
-    const snap = await new Promise((resolve) =>
-      onValue(ref(db, `expenses/${tripId}`), resolve, { onlyOnce: true })
+  async function updateExpense(expenseId, expenseData) {
+    await update(ref(db, `expenses/${tripId}/${expenseId}`), expenseData)
+    const merged = expenses.map((e) =>
+      e.id === expenseId ? { ...e, ...expenseData } : e
     )
-    const data = snap.val() || {}
-    const list = Object.entries(data).map(([id, val]) => ({ id, ...val }))
-    await saveSettlements(list)
+    await saveSettlements(merged)
   }
 
   return { expenses, loading, addExpense, updateExpense }
