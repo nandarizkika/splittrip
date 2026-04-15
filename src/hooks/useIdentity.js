@@ -1,13 +1,14 @@
+import { useState } from 'react'
+
 export function useIdentity(tripId) {
   const key = `tripsplit_identity_${tripId}`
 
-  function getIdentity() {
-    return localStorage.getItem(key) || null
-  }
+  const [identity, setIdentityState] = useState(() => localStorage.getItem(key) || null)
 
   function setIdentity(name) {
     localStorage.setItem(key, name)
+    setIdentityState(name)
   }
 
-  return { identity: getIdentity(), setIdentity }
+  return { identity, setIdentity }
 }

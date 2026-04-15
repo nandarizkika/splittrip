@@ -15,7 +15,7 @@ export function useTrip(tripId) {
     })
   }, [tripId])
 
-  async function createTrip(tripId, name, participants) {
+  async function createTrip(name, participants) {
     await set(ref(db, `trips/${tripId}`), {
       name,
       participants,
