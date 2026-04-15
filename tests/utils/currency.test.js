@@ -14,6 +14,9 @@ describe('formatRupiah', () => {
   it('formats sub-thousand', () => {
     expect(formatRupiah(500)).toBe('Rp 500')
   })
+  it('formats negative amount', () => {
+    expect(formatRupiah(-300000)).toBe('-Rp 300.000')
+  })
 })
 
 describe('parseRupiahInput', () => {

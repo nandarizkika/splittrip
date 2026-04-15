@@ -6,11 +6,13 @@ export function computeSettlements(expenses) {
     const people = payerIncluded
       ? [...new Set([paidBy, ...splitAmong])]
       : [...splitAmong]
-    const share = Math.round(amount / people.length)
+    const baseShare = Math.floor(amount / people.length)
+    const remainder = amount - baseShare * people.length
 
     balance[paidBy] = (balance[paidBy] || 0) + amount
-    for (const person of people) {
-      balance[person] = (balance[person] || 0) - share
+    for (let k = 0; k < people.length; k++) {
+      const personShare = k === 0 ? baseShare + remainder : baseShare
+      balance[people[k]] = (balance[people[k]] || 0) - personShare
     }
   }
 
