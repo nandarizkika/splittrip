@@ -72,7 +72,13 @@ export default function ExpenseList() {
         {expenses.length === 0 && (
           <p className="text-gray-500 text-sm text-center py-8">No expenses yet. Add the first one!</p>
         )}
-        {expenses.map((e) => <ExpenseRow key={e.id} expense={e} />)}
+        {expenses.map((e) => (
+          <ExpenseRow
+            key={e.id}
+            expense={e}
+            onEdit={() => navigate(`/trip/${tripId}/edit/${e.id}`)}
+          />
+        ))}
       </div>
 
       <div className="flex gap-3">
