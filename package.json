@@ -1,5 +1,5 @@
 {
-  "name": "myapp",
+  "name": "tripsplit",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "firebase": "^12.12.0",

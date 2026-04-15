@@ -1,0 +1,90 @@
+<h2>Settlement Screen</h2>
+<p class="subtitle">Optimized debts — minimum transactions to settle the trip</p>
+
+<div style="display:flex;justify-content:center;margin-bottom:24px;">
+  <div style="background:#1a1a2e;border-radius:16px;padding:16px;font-family:sans-serif;width:260px;">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="color:#aaa;font-size:14px;">←</div>
+      <div style="color:#fff;font-weight:700;font-size:14px;">Settlement</div>
+      <div style="margin-left:auto;background:#16213e;border-radius:6px;padding:3px 8px;">
+        <span style="color:#aaa;font-size:9px;">Bali Trip ✈️</span>
+      </div>
+    </div>
+
+    <!-- Summary bar -->
+    <div style="background:#16213e;border-radius:8px;padding:10px 12px;margin-bottom:14px;display:flex;justify-content:space-between;">
+      <div>
+        <div style="color:#aaa;font-size:8px;text-transform:uppercase;letter-spacing:0.5px;">Total Spent</div>
+        <div style="color:#fff;font-weight:800;font-size:14px;">Rp 2.850.000</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="color:#aaa;font-size:8px;text-transform:uppercase;letter-spacing:0.5px;">Transactions needed</div>
+        <div style="color:#27ae60;font-weight:700;font-size:14px;">4 payments</div>
+      </div>
+    </div>
+
+    <!-- Unpaid section -->
+    <div style="color:#aaa;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Outstanding</div>
+
+    <!-- Unpaid row -->
+    <div style="background:#16213e;border-radius:8px;padding:10px 12px;margin-bottom:6px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="color:#fff;font-size:11px;font-weight:600;">Nanda <span style="color:#aaa;font-weight:400;">→</span> Andri</div>
+          <div style="color:#e94560;font-size:13px;font-weight:700;">Rp 300.000</div>
+        </div>
+        <div style="background:#0f3460;border-radius:6px;padding:5px 10px;color:#aaa;font-size:9px;cursor:pointer;border:1px solid #1a4a7a;">Mark Paid</div>
+      </div>
+    </div>
+
+    <div style="background:#16213e;border-radius:8px;padding:10px 12px;margin-bottom:6px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="color:#fff;font-size:11px;font-weight:600;">Mega <span style="color:#aaa;font-weight:400;">→</span> Ama</div>
+          <div style="color:#e94560;font-size:13px;font-weight:700;">Rp 450.000</div>
+        </div>
+        <div style="background:#0f3460;border-radius:6px;padding:5px 10px;color:#aaa;font-size:9px;cursor:pointer;border:1px solid #1a4a7a;">Mark Paid</div>
+      </div>
+    </div>
+
+    <div style="background:#16213e;border-radius:8px;padding:10px 12px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="color:#fff;font-size:11px;font-weight:600;">Arul <span style="color:#aaa;font-weight:400;">→</span> Nanda</div>
+          <div style="color:#e94560;font-size:13px;font-weight:700;">Rp 200.000</div>
+        </div>
+        <div style="background:#0f3460;border-radius:6px;padding:5px 10px;color:#aaa;font-size:9px;cursor:pointer;border:1px solid #1a4a7a;">Mark Paid</div>
+      </div>
+    </div>
+
+    <!-- Paid section -->
+    <div style="color:#aaa;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Settled ✓</div>
+
+    <div style="background:#16213e;border-radius:8px;padding:10px 12px;margin-bottom:6px;opacity:0.5;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="color:#fff;font-size:11px;font-weight:600;text-decoration:line-through;">Ama <span style="color:#aaa;font-weight:400;">→</span> Andri</div>
+          <div style="color:#aaa;font-size:13px;font-weight:700;text-decoration:line-through;">Rp 375.000</div>
+        </div>
+        <div style="background:#27ae60;border-radius:6px;padding:5px 10px;color:#fff;font-size:9px;">✓ Paid</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <h3>Key details</h3>
+  <ul style="color:#ccc;font-size:13px;line-height:1.9;">
+    <li><strong>Optimized</strong> — algorithm minimizes number of transactions needed</li>
+    <li><strong>Outstanding section</strong> — unpaid debts with "Mark Paid" button</li>
+    <li><strong>Settled section</strong> — paid debts shown greyed out with ✓, so everyone can verify</li>
+    <li><strong>Anyone can mark paid</strong> — either the payer or receiver can mark it</li>
+    <li><strong>Live sync</strong> — when one person marks paid, everyone sees it instantly</li>
+    <li><strong>Recalculates automatically</strong> — when a new expense is added, settlement updates</li>
+  </ul>
+</div>
+
+<p class="subtitle">Does the settlement screen look right? This is the last screen — any final changes?</p>

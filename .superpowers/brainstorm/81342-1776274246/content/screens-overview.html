@@ -1,0 +1,103 @@
+<h2>App Screens — Overview</h2>
+<p class="subtitle">4 main screens. Click one to tell me which to look at first.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="home" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:12px;padding:20px;font-family:sans-serif;max-width:200px;margin:0 auto;">
+        <div style="color:#e94560;font-weight:700;font-size:16px;margin-bottom:4px;">TripSplit</div>
+        <div style="color:#aaa;font-size:10px;margin-bottom:16px;">Track & split trip expenses</div>
+        <div style="background:#16213e;border-radius:8px;padding:12px;margin-bottom:8px;color:#fff;font-size:11px;text-align:center;border:1px solid #e94560;">+ Create New Trip</div>
+        <div style="color:#aaa;font-size:10px;text-align:center;margin:8px 0;">— or —</div>
+        <div style="background:#16213e;border-radius:8px;padding:8px;display:flex;gap:6px;align-items:center;">
+          <input style="background:#0f3460;border:none;border-radius:4px;color:#fff;padding:4px 6px;font-size:10px;flex:1;" placeholder="Enter trip code" readonly/>
+          <div style="background:#e94560;border-radius:4px;padding:4px 8px;color:#fff;font-size:10px;">Join</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Home</h3>
+      <p>Create a new trip or join one via code</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="add-expense" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:12px;padding:20px;font-family:sans-serif;max-width:200px;margin:0 auto;">
+        <div style="color:#fff;font-weight:700;font-size:13px;margin-bottom:12px;">Add Expense</div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;color:#aaa;font-size:10px;">🍜 Food & Drinks ▾</div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;color:#fff;font-size:10px;">Rp 1.500.000</div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;color:#fff;font-size:10px;">Paid by: <span style="color:#e94560;">Andri</span></div>
+        <div style="color:#aaa;font-size:9px;margin-bottom:4px;">Split among:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">
+          <span style="background:#e94560;color:#fff;border-radius:12px;padding:2px 8px;font-size:9px;">Nanda ✓</span>
+          <span style="background:#0f3460;color:#aaa;border-radius:12px;padding:2px 8px;font-size:9px;">Mega</span>
+          <span style="background:#e94560;color:#fff;border-radius:12px;padding:2px 8px;font-size:9px;">Arul ✓</span>
+        </div>
+        <div style="background:#e94560;border-radius:6px;padding:6px;color:#fff;font-size:10px;text-align:center;">Save Expense</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Add Expense</h3>
+      <p>Category dropdown, Rp amount, payer, split among</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="expense-list" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:12px;padding:20px;font-family:sans-serif;max-width:200px;margin:0 auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="color:#fff;font-weight:700;font-size:13px;">Bali Trip</div>
+          <div style="background:#e94560;border-radius:6px;padding:4px 8px;color:#fff;font-size:9px;">+ Add</div>
+        </div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:#fff;font-size:10px;">🎟️ Tickets</span><span style="color:#e94560;font-size:10px;">Rp 1.500.000</span></div>
+          <div style="color:#aaa;font-size:9px;">Andri → Nanda, Mega, Arul, Ama</div>
+        </div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:#fff;font-size:10px;">🍜 Dinner</span><span style="color:#e94560;font-size:10px;">Rp 350.000</span></div>
+          <div style="color:#aaa;font-size:9px;">Nanda → Mega, Arul</div>
+        </div>
+        <div style="background:#0f3460;border-radius:6px;padding:6px;color:#fff;font-size:10px;text-align:center;margin-top:8px;">View Settlement →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Expense List</h3>
+      <p>All expenses, running total, go to settlement</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="settlement" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:12px;padding:20px;font-family:sans-serif;max-width:200px;margin:0 auto;">
+        <div style="color:#fff;font-weight:700;font-size:13px;margin-bottom:12px;">Settlement</div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="color:#fff;font-size:10px;">Nanda → Andri</div>
+              <div style="color:#e94560;font-size:11px;font-weight:700;">Rp 300.000</div>
+            </div>
+            <div style="background:#16213e;border:1px solid #444;border-radius:4px;padding:4px 8px;color:#aaa;font-size:9px;">Mark Paid</div>
+          </div>
+        </div>
+        <div style="background:#16213e;border-radius:6px;padding:8px;margin-bottom:6px;opacity:0.5;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="color:#fff;font-size:10px;text-decoration:line-through;">Mega → Andri</div>
+              <div style="color:#aaa;font-size:11px;font-weight:700;text-decoration:line-through;">Rp 375.000</div>
+            </div>
+            <div style="background:#27ae60;border-radius:4px;padding:4px 8px;color:#fff;font-size:9px;">✓ Paid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Settlement</h3>
+      <p>Optimized debts, mark as paid</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Which screen would you like to see in more detail? Click to select, then reply in terminal.</p>

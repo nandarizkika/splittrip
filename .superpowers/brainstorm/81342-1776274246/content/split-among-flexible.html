@@ -1,0 +1,89 @@
+<h2>Split Among — Flexible Members</h2>
+<p class="subtitle">Adding a new member mid-trip. Two options for where it lives.</p>
+
+<div class="split">
+
+  <div class="mockup">
+    <div class="mockup-header">Option A — Add from Split Among</div>
+    <div class="mockup-body" style="display:flex;justify-content:center;">
+      <div style="background:#1a1a2e;border-radius:16px;padding:18px;font-family:sans-serif;width:230px;">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="color:#aaa;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;">Split among</div>
+          <div style="color:#e94560;font-size:9px;">Select all</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+          <div style="background:#e94560;border-radius:20px;padding:5px 12px;color:#fff;font-size:11px;">✓ Nanda</div>
+          <div style="background:#e94560;border-radius:20px;padding:5px 12px;color:#fff;font-size:11px;">✓ Mega</div>
+          <div style="background:#e94560;border-radius:20px;padding:5px 12px;color:#fff;font-size:11px;">✓ Arul</div>
+          <div style="background:#16213e;border-radius:20px;padding:5px 12px;color:#aaa;font-size:11px;">Ama</div>
+          <!-- Add new member chip -->
+          <div style="background:#16213e;border:1px dashed #e94560;border-radius:20px;padding:5px 12px;color:#e94560;font-size:11px;">+ New</div>
+        </div>
+
+        <!-- Inline input appears when + New is tapped -->
+        <div style="background:#0f3460;border-radius:8px;padding:10px;border:1px solid #e94560;">
+          <div style="color:#aaa;font-size:9px;margin-bottom:5px;">Add new member to trip</div>
+          <div style="display:flex;gap:6px;">
+            <div style="background:#16213e;border-radius:6px;padding:6px 8px;color:#888;font-size:11px;flex:1;">Type name...</div>
+            <div style="background:#e94560;border-radius:6px;padding:6px 10px;color:#fff;font-size:10px;font-weight:600;">Add</div>
+          </div>
+          <div style="color:#aaa;font-size:9px;margin-top:5px;">⚡ They'll be added to the trip for everyone</div>
+        </div>
+
+        <div style="color:#aaa;font-size:9px;margin-top:6px;">Each pays: <span style="color:#e94560;font-weight:600;">Rp 500.000</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">Option B — Manage from Trip Settings</div>
+    <div class="mockup-body" style="display:flex;justify-content:center;">
+      <div style="background:#1a1a2e;border-radius:16px;padding:18px;font-family:sans-serif;width:230px;">
+
+        <!-- Trip header with settings -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="color:#fff;font-weight:700;font-size:14px;">Bali Trip ✈️</div>
+          <div style="color:#aaa;font-size:18px;">⚙️</div>
+        </div>
+
+        <div style="background:#16213e;border-radius:8px;padding:12px;margin-bottom:10px;">
+          <div style="color:#aaa;font-size:10px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Members (5)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">
+            <div style="background:#0f3460;border-radius:16px;padding:4px 10px;color:#fff;font-size:11px;">Andri</div>
+            <div style="background:#0f3460;border-radius:16px;padding:4px 10px;color:#fff;font-size:11px;">Nanda</div>
+            <div style="background:#0f3460;border-radius:16px;padding:4px 10px;color:#fff;font-size:11px;">Mega</div>
+            <div style="background:#0f3460;border-radius:16px;padding:4px 10px;color:#fff;font-size:11px;">Arul</div>
+            <div style="background:#0f3460;border-radius:16px;padding:4px 10px;color:#fff;font-size:11px;">Ama</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div style="background:#16213e;border:1px dashed #e94560;border-radius:6px;padding:6px 8px;color:#888;font-size:11px;flex:1;">New member name...</div>
+            <div style="background:#e94560;border-radius:6px;padding:6px 10px;color:#fff;font-size:11px;">+ Add</div>
+          </div>
+        </div>
+
+        <div style="color:#aaa;font-size:9px;text-align:center;">New members appear in Split Among on all future expenses</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="options" style="margin-top:20px;">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Add from Split Among</h3>
+      <p>"+New" chip right in the form. Tap, type name, added to the trip globally. Fastest path — no leaving the form.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Manage from Trip Settings</h3>
+      <p>Members managed in a separate settings screen. Cleaner separation but requires extra navigation.</p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:12px;">Either way, new members are added to the trip globally and appear everywhere.</p>
