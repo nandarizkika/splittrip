@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTrip } from '../hooks/useTrip'
 import { useExpenses } from '../hooks/useExpenses'
@@ -25,15 +25,17 @@ export default function AddEditExpense() {
   const [saving, setSaving] = useState(false)
   const [newMember, setNewMember] = useState('')
   const [showAddMember, setShowAddMember] = useState(false)
+  const initialized = useRef(false)
 
   useEffect(() => {
     if (!isEdit && identity) setPaidBy(identity)
   }, [identity, isEdit])
 
   useEffect(() => {
-    if (isEdit && expenses.length > 0) {
+    if (isEdit && !initialized.current && expenses.length > 0) {
       const e = expenses.find((x) => x.id === expenseId)
       if (e) {
+        initialized.current = true
         setCategory(e.category)
         setAmount(e.amount)
         setPaidBy(e.paidBy)
@@ -69,7 +71,7 @@ export default function AddEditExpense() {
   const perPerson = splitPeople.length > 0 ? Math.round(amount / splitPeople.length) : 0
 
   async function handleSave() {
-    if (!amount || !paidBy || splitAmong.length === 0) return
+    if (!amount || !paidBy || splitPeople.length === 0) return
     setSaving(true)
     try {
       const data = { category, amount, paidBy, payerIncluded, splitAmong }
@@ -201,7 +203,7 @@ export default function AddEditExpense() {
 
       <button
         onClick={handleSave}
-        disabled={!amount || !paidBy || splitAmong.length === 0 || saving}
+        disabled={!amount || !paidBy || splitPeople.length === 0 || saving}
         className="mt-6 w-full bg-accent text-white py-3.5 rounded-xl font-bold text-sm disabled:opacity-40"
       >
         {saving ? 'Saving...' : isEdit ? 'Save Changes' : 'Save Expense'}

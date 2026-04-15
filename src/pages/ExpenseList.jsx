@@ -33,7 +33,12 @@ export default function ExpenseList() {
       ? [...new Set([e.paidBy, ...e.splitAmong])]
       : e.splitAmong
     if (people.includes(identity)) {
-      myBalance -= Math.round(e.amount / people.length)
+      const baseShare = Math.floor(e.amount / people.length)
+      const remainder = e.amount - baseShare * people.length
+      // First person in the array gets the remainder (mirrors computeSettlements)
+      const myIndex = people.indexOf(identity)
+      const myShare = myIndex === 0 ? baseShare + remainder : baseShare
+      myBalance -= myShare
     }
   }
 

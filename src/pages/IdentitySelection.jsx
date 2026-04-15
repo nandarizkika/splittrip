@@ -15,7 +15,7 @@ export default function IdentitySelection() {
 
   function pick(name) {
     setIdentity(name)
-    navigate(`/trip/${tripId}`, { replace: true })
+    // navigate handled by useEffect when identity state updates
   }
 
   if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>
