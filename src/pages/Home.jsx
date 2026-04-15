@@ -27,13 +27,17 @@ export default function Home() {
   async function handleCreate() {
     if (!tripName.trim() || participants.length < 2) return
     setLoading(true)
-    const tripId = generateTripId()
-    await set(ref(db, `trips/${tripId}`), {
-      name: tripName.trim(),
-      participants,
-      createdAt: Date.now(),
-    })
-    navigate(`/trip/${tripId}/identity`)
+    try {
+      const tripId = generateTripId()
+      await set(ref(db, `trips/${tripId}`), {
+        name: tripName.trim(),
+        participants,
+        createdAt: Date.now(),
+      })
+      navigate(`/trip/${tripId}/identity`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   function handleJoin() {
