@@ -25,6 +25,7 @@ export default function SplitBill() {
   const [serviceCharge, setServiceCharge] = useState(0)
   const [tax, setTax] = useState(0)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
   const [ocrLoading, setOcrLoading] = useState(false)
   const [ocrError, setOcrError] = useState('')
   const fileInputRef = useRef(null)
@@ -135,6 +136,7 @@ export default function SplitBill() {
   async function handleSave() {
     if (!hasValidItems || !paidBy) return
     setSaving(true)
+    setSaveError('')
     try {
       const splitAmong = Object.keys(perPersonAmounts)
       const data = {
@@ -151,6 +153,8 @@ export default function SplitBill() {
         await addExpense(data)
       }
       navigate(`/trip/${tripId}`)
+    } catch {
+      setSaveError('Failed to save. Please try again.')
     } finally {
       setSaving(false)
     }
@@ -295,10 +299,15 @@ export default function SplitBill() {
         )}
       </div>
 
+      {saveError && (
+        <div className="mt-4 bg-red-900/30 border border-red-700 text-red-300 text-xs px-3 py-2 rounded-lg">
+          {saveError}
+        </div>
+      )}
       <button
         onClick={handleSave}
         disabled={!hasValidItems || !paidBy || saving}
-        className="mt-6 w-full bg-accent text-white py-3.5 rounded-xl font-bold text-sm disabled:opacity-40"
+        className="mt-4 w-full bg-accent text-white py-3.5 rounded-xl font-bold text-sm disabled:opacity-40"
       >
         {saving ? 'Saving...' : isEdit ? 'Save Changes' : 'Save Split Bill'}
       </button>
