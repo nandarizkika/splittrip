@@ -5,6 +5,7 @@ import ExpenseList from './pages/ExpenseList'
 import TripSettings from './pages/TripSettings'
 import AddEditExpense from './pages/AddEditExpense'
 import Settlement from './pages/Settlement'
+import SplitBill from './pages/SplitBill'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Route path="/trip/:tripId/add" element={<AddEditExpense />} />
       <Route path="/trip/:tripId/edit/:expenseId" element={<AddEditExpense />} />
       <Route path="/trip/:tripId/settlement" element={<Settlement />} />
+      <Route path="/trip/:tripId/splitbill" element={<SplitBill />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
