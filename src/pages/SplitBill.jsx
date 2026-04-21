@@ -236,7 +236,6 @@ export default function SplitBill() {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {participants
-                    .filter((p) => p !== paidBy)
                     .map((name) => (
                       <button
                         key={name}
