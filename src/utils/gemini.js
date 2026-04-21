@@ -33,5 +33,9 @@ export async function parseReceiptWithGemini(
   const data = await response.json()
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text || ''
   const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-  return JSON.parse(cleaned)
+  try {
+    return JSON.parse(cleaned)
+  } catch {
+    throw new Error(`Gemini returned unparseable response: ${cleaned.slice(0, 100)}`)
+  }
 }

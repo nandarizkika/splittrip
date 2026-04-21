@@ -55,4 +55,20 @@ describe('parseReceiptWithGemini', () => {
     await expect(parseReceiptWithGemini('data', 'image/jpeg', ''))
       .rejects.toThrow('VITE_GEMINI_API_KEY is not set')
   })
+
+  it('throws descriptive error when response is not valid JSON', async () => {
+    fetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        candidates: [{
+          content: {
+            parts: [{ text: 'Sorry, I cannot process this image.' }]
+          }
+        }]
+      })
+    })
+
+    await expect(parseReceiptWithGemini('base64data', 'image/jpeg', 'test-key'))
+      .rejects.toThrow('Gemini returned unparseable response:')
+  })
 })
