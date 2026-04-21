@@ -1,6 +1,6 @@
 # SplitTrip
 
-A mobile-first web app for tracking and splitting trip expenses among a group of friends. No installation, no login — just share a link.
+A mobile-first web app for tracking and splitting trip expenses among a group of friends. No login, no install — just share a link.
 
 **Live:** https://splittripid.web.app
 
@@ -8,30 +8,78 @@ A mobile-first web app for tracking and splitting trip expenses among a group of
 
 ## Features
 
-- Create a trip and invite friends via a shareable code
-- Add expenses with category, amount, who paid, and who splits
-- Real-time sync — everyone sees changes instantly
-- Settlement screen with optimized debt minimization (fewest transactions to settle up)
-- Mark debts as paid, copy amounts for bank transfer
-- Works on any phone browser, no app install needed
+### Core
+- **No accounts needed** — pick your name once, stored locally per trip
+- **Shareable trip code** — invite friends by sharing the URL
+- **Real-time sync** — everyone sees changes instantly via Firebase
+
+### Expense Tracking
+- Add expenses with category, amount, who paid, and who it's split among
+- Equal split or custom per-person amounts
+- Edit or delete any expense
+
+### Split Bill
+- Itemized bill splitting — enter each dish and assign it to whoever ordered it
+- **Receipt OCR** — scan a receipt photo with Gemini Vision to auto-fill items
+- Service charge and tax percentage inputs
+- Live per-person total as you assign items
+
+### Settlement
+- Optimized debt minimization — fewest transactions to settle up
+- Mark debts as paid
+- Copy amounts for bank transfer
+
+---
 
 ## Tech Stack
 
-- React + Vite
-- Firebase Realtime Database (real-time sync)
-- Firebase Hosting
-- Tailwind CSS
+| Layer | Technology |
+|-------|------------|
+| Frontend | React + Vite |
+| Styling | Tailwind CSS |
+| Database | Firebase Realtime Database |
+| Hosting | Firebase Hosting |
+| OCR | Google Gemini Vision API (`gemini-1.5-flash`) |
+
+---
 
 ## Local Development
 
-1. Clone the repo
-2. Copy `.env.example` to `.env.local` and fill in your Firebase project credentials
-3. Install dependencies and start the dev server:
+### 1. Clone and install
 
 ```bash
+git clone https://github.com/your-username/trip_spending.git
+cd trip_spending
 npm install
+```
+
+### 2. Configure environment
+
+Copy `.env.example` to `.env.local` and fill in your credentials:
+
+```bash
+cp .env.example .env.local
+```
+
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_DATABASE_URL=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_APP_ID=
+VITE_GEMINI_API_KEY=       # Optional — only needed for receipt OCR
+```
+
+- **Firebase**: Create a project at [console.firebase.google.com](https://console.firebase.google.com), enable Realtime Database, and copy the config.
+- **Gemini API key**: Get a free key at [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey) (1,500 free requests/day, no billing required).
+
+### 3. Start dev server
+
+```bash
 npm run dev
 ```
+
+---
 
 ## Deploy
 
@@ -40,8 +88,18 @@ npm run build
 firebase deploy --only hosting
 ```
 
+---
+
 ## How It Works
 
-Each trip is identified by a unique code in the URL (`/trip/{tripId}`). Anyone with the link can join. Identity (your name) is picked once and stored in `localStorage` per trip — no accounts needed.
+### Identity
+Each trip is identified by a unique code in the URL (`/trip/{tripId}`). Anyone with the link can join. Your name is picked once on first visit and stored in `localStorage` — no accounts needed.
 
-Settlement uses a greedy debt-minimization algorithm: it calculates each person's net balance and matches the largest creditor with the largest debtor, minimizing the total number of transactions.
+### Equal Split
+Expenses are split equally among participants. The first person in the list absorbs any rounding remainder (e.g. Rp 100,000 split 3 ways: person 1 pays Rp 33,334, others pay Rp 33,333).
+
+### Itemized Split (Split Bill)
+Each item is assigned to one or more people. The cost is divided equally among assignees. Service charge and tax are applied as a percentage multiplier. The result is stored as a `perPersonAmounts` map and used directly in settlement.
+
+### Settlement Algorithm
+Uses a greedy debt-minimization approach: calculates each person's net balance (total paid minus total owed), then matches the largest creditor with the largest debtor iteratively — minimizing the total number of transactions needed to settle up.
