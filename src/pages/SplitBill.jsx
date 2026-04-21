@@ -121,7 +121,7 @@ export default function SplitBill() {
         totals[person] = (totals[person] || 0) + share
       }
     }
-    const multiplier = 1 + serviceCharge / 100 + tax / 100
+    const multiplier = (1 + serviceCharge / 100) * (1 + tax / 100)
     const result = {}
     for (const [person, subtotal] of Object.entries(totals)) {
       result[person] = Math.round(subtotal * multiplier)
