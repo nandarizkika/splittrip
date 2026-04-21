@@ -38,7 +38,7 @@ describe('computeSettlements', () => {
     const expenses = [{
       amount: 160000,
       paidBy: 'Andri',
-      payerIncluded: false,
+      payerIncluded: false, // ignored when perPersonAmounts is present
       splitAmong: ['Nanda', 'Mega', 'Andri'],
       perPersonAmounts: { Nanda: 60000, Mega: 60000, Andri: 40000 },
     }]
