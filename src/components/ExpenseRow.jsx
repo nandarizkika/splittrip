@@ -7,7 +7,9 @@ export default function ExpenseRow({ expense, onEdit }) {
     day: 'numeric',
     month: 'short',
   })
+  const isItemized = !!expense.perPersonAmounts
   const peopleCount = expense.splitAmong.length + (expense.payerIncluded ? 1 : 0)
+  const sublabel = isItemized ? 'itemized' : `${peopleCount} people`
 
   return (
     <div className="bg-card rounded-xl px-3 py-2.5 flex items-center gap-3">
@@ -15,7 +17,7 @@ export default function ExpenseRow({ expense, onEdit }) {
       <div className="flex-1 min-w-0">
         <div className="text-white text-xs font-semibold">{cat.label}</div>
         <div className="text-gray-400 text-xs truncate">
-          {expense.paidBy} · {peopleCount} people · {date}
+          {expense.paidBy} · {sublabel} · {date}
         </div>
       </div>
       <div className="flex items-center gap-2 shrink-0">

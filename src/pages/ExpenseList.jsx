@@ -29,16 +29,28 @@ export default function ExpenseList() {
   let myBalance = 0
   for (const e of expenses) {
     if (e.paidBy === identity) myBalance += e.amount
-    const people = e.payerIncluded
-      ? [...new Set([e.paidBy, ...e.splitAmong])]
-      : e.splitAmong
-    if (people.includes(identity)) {
-      const baseShare = Math.floor(e.amount / people.length)
-      const remainder = e.amount - baseShare * people.length
-      // First person in the array gets the remainder (mirrors computeSettlements)
-      const myIndex = people.indexOf(identity)
-      const myShare = myIndex === 0 ? baseShare + remainder : baseShare
-      myBalance -= myShare
+
+    if (e.perPersonAmounts && e.perPersonAmounts[identity] !== undefined) {
+      myBalance -= e.perPersonAmounts[identity]
+    } else {
+      const people = e.payerIncluded
+        ? [...new Set([e.paidBy, ...e.splitAmong])]
+        : e.splitAmong
+      if (people.includes(identity)) {
+        const baseShare = Math.floor(e.amount / people.length)
+        const remainder = e.amount - baseShare * people.length
+        const myIndex = people.indexOf(identity)
+        const myShare = myIndex === 0 ? baseShare + remainder : baseShare
+        myBalance -= myShare
+      }
+    }
+  }
+
+  function handleEditExpense(e) {
+    if (e.perPersonAmounts) {
+      navigate(`/trip/${tripId}/splitbill?edit=${e.id}`)
+    } else {
+      navigate(`/trip/${tripId}/edit/${e.id}`)
     }
   }
 
@@ -76,7 +88,7 @@ export default function ExpenseList() {
           <ExpenseRow
             key={e.id}
             expense={e}
-            onEdit={() => navigate(`/trip/${tripId}/edit/${e.id}`)}
+            onEdit={() => handleEditExpense(e)}
           />
         ))}
       </div>
@@ -87,6 +99,12 @@ export default function ExpenseList() {
           className="flex-1 bg-accent text-white py-3 rounded-xl font-bold text-sm"
         >
           + Add Expense
+        </button>
+        <button
+          onClick={() => navigate(`/trip/${tripId}/splitbill`)}
+          className="flex-1 bg-card border border-deep text-white py-3 rounded-xl text-sm"
+        >
+          🧾 Split Bill
         </button>
         <button
           onClick={() => navigate(`/trip/${tripId}/settlement`)}
