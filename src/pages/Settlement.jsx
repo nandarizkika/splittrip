@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTrip } from '../hooks/useTrip'
 import { useExpenses } from '../hooks/useExpenses'
 import { useSettlements } from '../hooks/useSettlements'
+import { usePaymentInfo } from '../hooks/usePaymentInfo'
 import { formatRupiah } from '../utils/currency'
 import SettlementRow from '../components/SettlementRow'
 
@@ -11,6 +12,7 @@ export default function Settlement() {
   const { trip } = useTrip(tripId)
   const { expenses } = useExpenses(tripId)
   const { settlements, markPaid } = useSettlements(tripId)
+  const { paymentInfo } = usePaymentInfo(tripId)
 
   const totalSpent = expenses.reduce((sum, e) => sum + e.amount, 0)
   const unpaid = settlements.filter((s) => !s.paid)
@@ -42,7 +44,13 @@ export default function Settlement() {
           <div className="text-gray-400 text-xs uppercase tracking-wide mb-2">Outstanding</div>
           <div className="space-y-2">
             {unpaid.map((s) => (
-              <SettlementRow key={s.id} settlement={s} onMarkPaid={markPaid} />
+              <SettlementRow
+                key={s.id}
+                settlement={s}
+                onMarkPaid={markPaid}
+                paymentInfo={paymentInfo[s.to]}
+                tripName={trip?.name || ''}
+              />
             ))}
           </div>
         </div>
@@ -53,7 +61,13 @@ export default function Settlement() {
           <div className="text-gray-400 text-xs uppercase tracking-wide mb-2">Settled ✓</div>
           <div className="space-y-2">
             {paid.map((s) => (
-              <SettlementRow key={s.id} settlement={s} onMarkPaid={markPaid} />
+              <SettlementRow
+                key={s.id}
+                settlement={s}
+                onMarkPaid={markPaid}
+                paymentInfo={paymentInfo[s.to]}
+                tripName={trip?.name || ''}
+              />
             ))}
           </div>
         </div>
