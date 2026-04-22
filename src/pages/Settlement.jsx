@@ -49,6 +49,7 @@ export default function Settlement() {
                 settlement={s}
                 onMarkPaid={markPaid}
                 paymentInfo={paymentInfo[s.to]}
+                debtorPhone={paymentInfo[s.from]?.phone || ''}
                 tripName={trip?.name || ''}
               />
             ))}
@@ -66,6 +67,7 @@ export default function Settlement() {
                 settlement={s}
                 onMarkPaid={markPaid}
                 paymentInfo={paymentInfo[s.to]}
+                debtorPhone={paymentInfo[s.from]?.phone || ''}
                 tripName={trip?.name || ''}
               />
             ))}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { formatRupiah } from '../utils/currency'
 import { EWALLET_LABELS, buildReminderMessage, buildWhatsAppUrl } from '../utils/whatsapp'
 
-export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tripName }) {
+export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, debtorPhone, tripName }) {
   const [expanded, setExpanded] = useState(false)
   const [copiedMsg, setCopiedMsg] = useState('')
 
@@ -28,7 +28,7 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
       bankName: paymentInfo?.bankName || '',
       bankAccount: paymentInfo?.bankAccount || '',
     })
-    const url = buildWhatsAppUrl({ phone: paymentInfo?.phone || '', message })
+    const url = buildWhatsAppUrl({ phone: debtorPhone, message })
     window.open(url, '_blank')
   }
 
@@ -106,7 +106,7 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
             >
               Mark Paid
             </button>
-            {hasPhone && (
+            {debtorPhone && (
               <button
                 onClick={handleRemind}
                 className="flex-1 bg-green-600 text-white text-xs py-2 rounded-lg font-semibold"
