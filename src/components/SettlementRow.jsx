@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { formatRupiah } from '../utils/currency'
-import { buildReminderMessage, buildWhatsAppUrl } from '../utils/whatsapp'
+import { EWALLET_LABELS, buildReminderMessage, buildWhatsAppUrl } from '../utils/whatsapp'
 
 export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tripName }) {
   const [expanded, setExpanded] = useState(false)
@@ -8,7 +8,7 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
   const hasPhone = !!paymentInfo?.phone
   const hasBank = !!(paymentInfo?.bankName && paymentInfo?.bankAccount)
   const hasEwallets = !!(paymentInfo?.ewallets && paymentInfo.ewallets.length > 0)
-  const hasAnyInfo = hasPhone || hasBank
+  const hasAnyInfo = (hasPhone && hasEwallets) || hasBank
 
   function copyText(text) {
     navigator.clipboard.writeText(text)
@@ -25,14 +25,12 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
       bankName: paymentInfo?.bankName || '',
       bankAccount: paymentInfo?.bankAccount || '',
     })
-    const url = buildWhatsAppUrl({ phone: paymentInfo.phone, message })
+    const url = buildWhatsAppUrl({ phone: paymentInfo?.phone || '', message })
     window.open(url, '_blank')
   }
 
   const ewalletLabel = hasEwallets
-    ? paymentInfo.ewallets
-        .map((e) => ({ gopay: 'GoPay', ovo: 'OVO', dana: 'Dana', shopeepay: 'ShopeePay' }[e] || e))
-        .join(' / ')
+    ? paymentInfo.ewallets.map((e) => EWALLET_LABELS[e] || e).join(' / ')
     : null
 
   return (

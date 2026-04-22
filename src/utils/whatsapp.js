@@ -1,4 +1,4 @@
-const EWALLET_LABELS = {
+export const EWALLET_LABELS = {
   gopay: 'GoPay',
   ovo: 'OVO',
   dana: 'Dana',
