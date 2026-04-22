@@ -4,14 +4,17 @@ import { EWALLET_LABELS, buildReminderMessage, buildWhatsAppUrl } from '../utils
 
 export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tripName }) {
   const [expanded, setExpanded] = useState(false)
+  const [copiedMsg, setCopiedMsg] = useState('')
 
   const hasPhone = !!paymentInfo?.phone
   const hasBank = !!(paymentInfo?.bankName && paymentInfo?.bankAccount)
   const hasEwallets = !!(paymentInfo?.ewallets && paymentInfo.ewallets.length > 0)
   const hasAnyInfo = (hasPhone && hasEwallets) || hasBank
 
-  function copyText(text) {
+  function copyText(text, label) {
     navigator.clipboard.writeText(text)
+    setCopiedMsg(label)
+    setTimeout(() => setCopiedMsg(''), 2000)
   }
 
   function handleRemind() {
@@ -62,7 +65,7 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
                   <div className="flex items-center gap-2">
                     <span className="text-white text-xs font-medium">{paymentInfo.phone}</span>
                     <button
-                      onClick={() => copyText(paymentInfo.phone)}
+                      onClick={() => copyText(paymentInfo.phone, 'Copied phone number!')}
                       className="bg-card text-accent text-xs px-2 py-1 rounded"
                     >
                       📋
@@ -78,13 +81,16 @@ export default function SettlementRow({ settlement, onMarkPaid, paymentInfo, tri
                       {paymentInfo.bankAccount} a/n {settlement.to}
                     </span>
                     <button
-                      onClick={() => copyText(paymentInfo.bankAccount)}
+                      onClick={() => copyText(paymentInfo.bankAccount, 'Copied account number!')}
                       className="bg-card text-accent text-xs px-2 py-1 rounded"
                     >
                       📋
                     </button>
                   </div>
                 </div>
+              )}
+              {copiedMsg && (
+                <div className="text-center text-xs text-green-400 py-1">{copiedMsg}</div>
               )}
             </div>
           ) : (
