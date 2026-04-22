@@ -4,12 +4,14 @@ import { db } from '../firebase'
 
 export function usePaymentInfo(tripId) {
   const [paymentInfo, setPaymentInfo] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!tripId) return
+    if (!tripId) { setLoading(false); return }
     const piRef = ref(db, `trips/${tripId}/paymentInfo`)
     return onValue(piRef, (snap) => {
       setPaymentInfo(snap.val() || {})
+      setLoading(false)
     })
   }, [tripId])
 
@@ -25,5 +27,5 @@ export function usePaymentInfo(tripId) {
     )
   }
 
-  return { paymentInfo, updatePaymentInfo }
+  return { paymentInfo, loading, updatePaymentInfo }
 }
