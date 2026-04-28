@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTrip } from '../hooks/useTrip'
 import { useExpenses } from '../hooks/useExpenses'
 import { useIdentity } from '../hooks/useIdentity'
+import { useLocalTrips } from '../hooks/useLocalTrips'
 import { formatRupiah } from '../utils/currency'
 import ExpenseRow from '../components/ExpenseRow'
 
@@ -12,10 +13,15 @@ export default function ExpenseList() {
   const { trip, loading: tripLoading } = useTrip(tripId)
   const { expenses, loading: expLoading } = useExpenses(tripId)
   const { identity } = useIdentity(tripId)
+  const { upsertTrip } = useLocalTrips()
 
   useEffect(() => {
     if (!identity && !tripLoading) navigate(`/trip/${tripId}/identity`, { replace: true })
   }, [identity, tripLoading, tripId, navigate])
+
+  useEffect(() => {
+    if (trip?.name) upsertTrip(tripId, trip.name)
+  }, [tripId, trip?.name, upsertTrip])
 
   if (tripLoading || expLoading) {
     return <div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>
