@@ -6,22 +6,22 @@ const ACTION_WIDTH = 160
 
 export default function TripCard({ tripId, name, lastVisited, onRemove, activeTab }) {
   const navigate = useNavigate()
-  const { archived, setArchived } = useTripArchive(tripId)
+  const { archived, setArchived, loading } = useTripArchive(tripId)
   const [offsetX, setOffsetX] = useState(0)
   const [dragging, setDragging] = useState(false)
   const startXRef = useRef(null)
   const startOffsetRef = useRef(0)
 
+  if (loading) return null
   if (activeTab === 'active' && archived) return null
   if (activeTab === 'archived' && !archived) return null
 
-  const formattedDate = new Date(lastVisited).toLocaleDateString('id-ID', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  })
+  const formattedDate = lastVisited
+    ? new Date(lastVisited).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+    : '—'
 
   function onTouchStart(e) {
+    if (e.touches.length > 1) return
     startXRef.current = e.touches[0].clientX
     startOffsetRef.current = offsetX
     setDragging(true)
@@ -36,7 +36,7 @@ export default function TripCard({ tripId, name, lastVisited, onRemove, activeTa
   function onTouchEnd() {
     setDragging(false)
     startXRef.current = null
-    setOffsetX(Math.abs(offsetX) >= ACTION_WIDTH / 2 ? -ACTION_WIDTH : 0)
+    setOffsetX((prev) => (Math.abs(prev) >= ACTION_WIDTH / 2 ? -ACTION_WIDTH : 0))
   }
 
   function close() {
@@ -67,7 +67,7 @@ export default function TripCard({ tripId, name, lastVisited, onRemove, activeTa
           </button>
         )}
         <button
-          onClick={() => { onRemove(tripId); close() }}
+          onClick={() => { onRemove?.(tripId); close() }}
           className="bg-red-600 text-white text-xs font-semibold px-5 h-full"
         >
           Remove
