@@ -4,12 +4,14 @@ import { db } from '../firebase'
 
 export function useTripArchive(tripId) {
   const [archived, setArchivedState] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!tripId) return
+    if (!tripId) { setLoading(false); return }
     const archivedRef = ref(db, `trips/${tripId}/archived`)
     return onValue(archivedRef, (snap) => {
       setArchivedState(snap.val() === true)
+      setLoading(false)
     })
   }, [tripId])
 
@@ -17,5 +19,5 @@ export function useTripArchive(tripId) {
     await update(ref(db, `trips/${tripId}`), { archived: bool ? true : null })
   }
 
-  return { archived, setArchived }
+  return { archived, setArchived, loading }
 }
