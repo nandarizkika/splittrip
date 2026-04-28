@@ -27,7 +27,9 @@ A mobile-first web app for tracking and splitting trip expenses among a group of
 ### Settlement
 - Optimized debt minimization — fewest transactions to settle up
 - Mark debts as paid
-- Copy amounts for bank transfer
+- **Payment info per participant** — store phone number, e-wallet (GoPay, OVO, Dana, ShopeePay), and bank account so debtors know where to send money
+- **Copy to clipboard** — tap 📋 to copy phone or account number instantly
+- **WhatsApp reminder** — one tap opens WhatsApp with a pre-filled reminder message to the debtor
 
 ---
 
@@ -99,7 +101,10 @@ Each trip is identified by a unique code in the URL (`/trip/{tripId}`). Anyone w
 Expenses are split equally among participants. The first person in the list absorbs any rounding remainder (e.g. Rp 100,000 split 3 ways: person 1 pays Rp 33,334, others pay Rp 33,333).
 
 ### Itemized Split (Split Bill)
-Each item is assigned to one or more people. The cost is divided equally among assignees. Service charge and tax are applied as a percentage multiplier. The result is stored as a `perPersonAmounts` map and used directly in settlement.
+Each item is assigned to one or more people. The cost is divided equally among assignees. Service charge and tax are applied as compounding multipliers — service is applied to the subtotal first, then tax is applied on top of the result (e.g. 10,000 + 5% service = 10,500, then +10% tax = 11,550). The result is stored as a `perPersonAmounts` map and used directly in settlement.
+
+### WhatsApp Reminder
+Each trip participant can store their payment info (phone, e-wallet, bank account) in Trip Settings. On the Settlement screen, tapping a debt row reveals the creditor's payment details. If the debtor has a phone number saved, a "Remind via WA" button opens WhatsApp with a pre-filled message addressed to the debtor.
 
 ### Settlement Algorithm
 Uses a greedy debt-minimization approach: calculates each person's net balance (total paid minus total owed), then matches the largest creditor with the largest debtor iteratively — minimizing the total number of transactions needed to settle up.
