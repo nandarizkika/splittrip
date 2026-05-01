@@ -63,7 +63,10 @@ export default function ExpenseList() {
   return (
     <div className="min-h-screen flex flex-col p-4">
       <div className="flex items-center justify-between mb-1">
-        <h1 className="text-white font-extrabold text-base">{trip.name}</h1>
+        <div className="flex items-center gap-2">
+          <button onClick={() => navigate('/')} className="text-gray-400 text-lg leading-none">‹</button>
+          <h1 className="text-white font-extrabold text-base">{trip.name}</h1>
+        </div>
         <button onClick={() => navigate(`/trip/${tripId}/settings`)} className="text-xl">⚙️</button>
       </div>
       <p className="text-gray-400 text-xs mb-4">
